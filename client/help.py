@@ -23,11 +23,14 @@ You can type "owifc help COMMAND" for more information.
 
 Common OPTIONs are:
 
-(--host | -h) HOST ......... The host of your OpenWebif Server.
-(--bouquet | -b) BOUQUET ... The bouquet.
-(--file | -f) FILE ......... Read the params from the file (line by line).
-(--pretty | -p) ............ Pretty print.
-(--debug | -X) ............. Enable debug output.
+(--host | -h) HOST ................... The host of your OpenWebif Server.
+(--bouquet | -b) BOUQUET ............. The bouquet.
+--email-to address ................... Email the result to the specified address.
+--smtp username:password@host:port ... The SMTP server for sending mails.
+--smtps username:password@host:port .. The secure SMTP server for sending mails.
+(--file | -f) FILE ................... Read the params from the file (line by line).
+(--pretty | -p) ...................... Pretty print.
+(--debug | -X) ....................... Enable debug output.
 
 If the bouquet is omnitted, it uses the first (default) one.
 """)

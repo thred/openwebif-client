@@ -4,6 +4,7 @@ import config
 import datetime
 import re
 import json
+import smtp
 import textwrap
 import utils
 
@@ -23,15 +24,25 @@ def consume():
 
     response = utils.requestJson("epgmulti", params={"bRef": bRef})
 
-    for event in response["events"]:
-        if intersections == None or len(intersections) == 0:
-            report(event)
+    result = u""
 
-        else:
+    if intersections == None or len(intersections) == 0:
+        for event in response["events"]:
+            result += report(event)
+    else:
+        for event in response["events"]:
             matches = matching(intersections, event)
 
             if matches:
-                report(event, matches)
+                result += report(event, matches)
+
+    if config.emailTo:
+        if config.debug:
+            print("Sending result to: " + config.emailTo)
+
+        smtp.send(config.emailTo, "OpenWebIF Client", result)
+    else:
+        print(result)
 
 
 def compileIntersections(tup):
@@ -53,6 +64,8 @@ def prepareRegex(pattern):
 
 
 def report(event, matches=None):
+    result = u""
+
     if config.pretty:
         sname = fix(unicode(event.get("sname")))
         timestamp = datetime.datetime.fromtimestamp(
@@ -61,23 +74,21 @@ def report(event, matches=None):
         shortdesc = fix(unicode(event.get("shortdesc")))
         longdesc = fix(unicode(event.get("longdesc")))
 
-        print("")
-        if len(title) > 40:
-            print(textwrap.fill(title, 80))
-            print(unicode("{:>80}").format(sname + ", " + timestamp))
-        else:
-            print(unicode("{:40}{:>40}").format(
-                title, sname + ", " + timestamp))
-        print("--------------------------------------------------------------------------------")
-        printDescriptions([shortdesc, longdesc])
-        print("")
+        result += "\n"
+        result += textwrap.fill(title, 80) + "\n"
+        result += unicode(sname + ", " + timestamp) + "\n"
+        result += "--------------------------------------------------------------------------------\n"
+        result += formatDescriptions([shortdesc, longdesc])
+        result += "\n"
 
         if matches:
-            print("Matched by: " + ", ".join(matches))
-            print("")
+            result += "Matched by: " + ", ".join(matches) + "\n"
+            result += "\n"
     else:
-        print(utils.format(event, keys=[
-            "sname", "title", "begin_timestamp:timestamp", "shortdesc", "longdesc"]))
+        result += utils.format(event, keys=["sname", "title",
+                                            "begin_timestamp:timestamp", "shortdesc", "longdesc"])
+
+    return result
 
 
 def matching(intersections, event):
@@ -106,13 +117,15 @@ def matching(intersections, event):
 
 
 def formatIntersection(intersections):
-    texts = [intersection[0].pattern if intersection[1] else "NOT " + intersection[0].pattern for intersection in intersections]
+    texts = [intersection[0].pattern if intersection[1] else "NOT " +
+             intersection[0].pattern for intersection in intersections]
     texts = [text.replace("\\b", "") for text in texts]
     texts = [text.replace("\\s", " ") for text in texts]
     return " AND ".join(texts)
 
 
-def printDescriptions(texts):
+def formatDescriptions(texts):
+    result = u""
     texts = filter(lambda text: len(text) > 0, map(
         lambda text: fix(text), filter(lambda text: text != None, texts)))
 
@@ -124,7 +137,9 @@ def printDescriptions(texts):
     parts = re.split("\n", text)
 
     for part in parts:
-        print(textwrap.fill(part, 80))
+        result += textwrap.fill(part, 80) + "\n"
+
+    return result
 
 
 def fix(text):
@@ -147,7 +162,7 @@ it will print only lines, that contain the pattern.
 
 Respects follwing options:
 
-bouquet, debug, host, pretty.""")
+bouquet, debug, email, host, pretty.""")
 
 
 commands.register("epg", "Displays the program guide.",

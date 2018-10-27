@@ -122,7 +122,10 @@ if file:
 bouquet = _get("bouquet", "b")
 command = popArg(1, "help").lower()
 debug = _getFlag("debug", "X")
+emailTo = _get("email-to")
 host = _get("host", "h")
+smtp = _get("smtp")
+smtps = _get("smtps")
 pretty = _getFlag("pretty", "p")
 
 
