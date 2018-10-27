@@ -1,0 +1,7 @@
+{
+    "python.jediEnabled": false,
+    "python.pythonPath": "/bin/python",
+    "files.exclude": {
+        "**/*.pyc": true
+    }
+}
