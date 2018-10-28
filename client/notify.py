@@ -43,12 +43,20 @@ Usage: owifc notify [OPTION ...] [TERM ...]
 
 Calls the program guide and print's matching programs.
 
-The TERM is a regular expression. It may contain the keywords AND and NOT.
+The TERM is a regular expression. It may contain the keywords AND, NOT and IN.
 If at least one TERM is given, it will print only lines, that contain the pattern.
+Don't forget to put your search term in quotes!
 
-Respects follwing options:
+Examples:
 
-bouquet, debug, email, host, html.""")
+"foo AND bar" - Must contain "foo" and "bar" in any field.
+"foo IN title" - Must contain "foo" in the field "title". Other fields are 
+               "description" and "channel".
+"foo AND NOT bar IN channel" - The channel must not contain "bar".
+
+Currently it matches whole words only. The case is ignored.
+
+Respects follwing options: bouquet, debug, email, host, html.""")
 
 
 commands.register("notify", "Searches the program guide and prints notifications.",
