@@ -8,11 +8,12 @@ import client.commands
 import client.config
 import client.epg
 import client.help
+import client.notify
 
 import codecs
 import locale
 
-sys.stdout = codecs.getwriter(locale.getpreferredencoding())(sys.stdout)
+sys.stdout = codecs.getwriter("UTF-8")(sys.stdout)
 
 key = client.config.command
 

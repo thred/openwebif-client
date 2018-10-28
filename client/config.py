@@ -126,6 +126,7 @@ emailTo = _get("email-to")
 host = _get("host", "h")
 smtp = _get("smtp")
 smtps = _get("smtps")
+persist = _getFlag("persist")
 pretty = _getFlag("pretty", "p")
 
 
