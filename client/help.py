@@ -28,7 +28,6 @@ Common OPTIONs are:
 --email-to address ................... Email the result to the specified address.
 --smtp username:password@host:port ... The SMTP server for sending mails.
 --smtps username:password@host:port .. The secure SMTP server for sending mails.
---persist ............................ Persist reported shows and do not re-report them.
 (--file | -f) FILE ................... Read the params from the file (line by line).
 (--pretty | -p) ...................... Pretty print.
 (--debug | -X) ....................... Enable debug output.

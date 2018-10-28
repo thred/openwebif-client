@@ -9,11 +9,15 @@ class Program:
         self.title = utils.fix(event.get("title"))
         self.description = utils.fix(event.get("shortdesc"))
         self.content = utils.fix(event.get("longdesc"))
-        self.schedules = [Schedule(event.get("sref"), utils.fix(event.get("sname")), datetime.datetime.fromtimestamp(
-            event.get("begin_timestamp")).strftime("%Y-%m-%d %H:%M"), event.get("duration_sec"))]
+        self.hint = None
+        self.schedules = [Schedule(utils.fix(event.get("sname")), event.get(
+            "begin_timestamp"), event.get("duration_sec"))]
 
     def isSameAs(self, other):
         return self.title == other.title and self.description == other.description and self.content == other.content
+
+    def isScheduled(self):
+        return len(self.schedules) > 0
 
     def isMatching(self, term):
         return self.isMatchingAny([term])
@@ -24,9 +28,15 @@ class Program:
         for schedule in self.schedules:
             texts.append(schedule.channel)
 
+        matchingTerms = []
+
         for term in terms:
             if term.isMatching(texts):
-                return True
+                matchingTerms.append(term)
+
+        if matchingTerms:
+            self.hint = u"\n".join(["Matching: " + unicode(term) for term in matchingTerms])
+            return True
 
         return False
 
@@ -37,23 +47,21 @@ class Program:
         result += utils.wrap(self.title, lineLength) + "\n"
         result += "\n"
 
+        notes = [note for note in [self.description,
+                                   self.content, self.hint] if note]
+
         if len(self.schedules) > 0:
             for schedule in self.schedules:
                 result += unicode(schedule) + "\n"
 
-            if self.description or self.content:
+            if notes:
                 result += "-"*lineLength + "\n"
 
-        if self.description:
-            result += utils.wrap(self.description, lineLength) + "\n"
+        result += u"\n".join([utils.wrap(note, lineLength) +
+                              "\n" for note in notes])
 
-            if self.content:
-                result += "\n"
-
-        if self.content:
-            result += utils.wrap(self.content, lineLength) + "\n"
-
-        result += "="*lineLength + "\n"
+        if notes:
+            result += "="*lineLength + "\n"
 
         return result
 

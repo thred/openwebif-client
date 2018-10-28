@@ -18,20 +18,24 @@ def of(events, terms=None):
 class TimeTable():
 
     def __init__(self):
-        self.items = []
+        self.programs = []
 
     def add(self, program):
-        for item in self.items:
-            if item.isSameAs(program):
-                item.schedules += program.schedules
+        for existing in self.programs:
+            if existing.isSameAs(program):
+                existing.schedules += program.schedules
                 return
 
-        self.items.append(program)
+        self.programs.append(program)
+
+    def removeUnscheduled(self):
+        self.programs = [
+            program for program in self.programs if program.isScheduled()]
 
     def __len__(self):
-        return len(self.items)
+        return len(self.programs)
 
     def toHumanReadable(self, lineLength=72):
-        items = sorted(self.items, key=lambda item: item.title)
+        programs = sorted(self.programs, key=lambda item: item.title)
 
-        return "\n".join(item.toHumanReadable(lineLength) for item in items)
+        return "\n".join(program.toHumanReadable(lineLength) for program in programs)

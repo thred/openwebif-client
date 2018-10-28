@@ -49,7 +49,7 @@ If at least one TERM is given, it will print only lines, that contain the patter
 
 Respects follwing options:
 
-bouquet, debug, email, host, pretty.""")
+bouquet, debug, email, host.""")
 
 
 commands.register("notify", "Searches the program guide and prints notifications.",

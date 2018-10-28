@@ -1,6 +1,7 @@
+import datetime
+
 class Schedule:
-    def __init__(self, ref, channel, timestamp, duration):
-        self.ref = ref
+    def __init__(self, channel, timestamp, duration):
         self.channel = channel
         self.timestamp = timestamp
 
@@ -10,7 +11,7 @@ class Schedule:
             self.duration = None
 
     def toHumanReadable(self, lineLength=72):
-        timestamp = self.timestamp
+        timestamp = datetime.datetime.fromtimestamp(self.timestamp).strftime("%A, %Y-%m-%d %H:%M")
 
         if self.duration:
             timestamp += " (" + unicode(self.duration) + " min)"
