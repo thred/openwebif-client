@@ -3,18 +3,111 @@
 Bad Ischl AND NOT Bad Ischl TV
 Wolfgangsee
 Strobl
-Landkrimi
 
 # Films
 
 Odyssee im Weltraum
+Clockwork Orange
 Dark City
-Die neun Pforten
 Arsen und Spitzenhäubchen
 total verrückte Welt
 Die tollkühnen Männer in ihren fliegenden Kisten
 Monte Carlo Rallye
-Tom und Jerry
+
+# Top 100
+
+Die Verurteilten
+Der Pate
+The Dark Knight
+Der Pate 2
+Schindlers Liste
+Zwei glorreiche Halunken
+Die 12 Geschworenen
+Inception
+Forrest Gump
+Fight Club
+Star Wars
+GoodFellas
+Einer flog über das Kuckucksnest
+Shichinin no samurai
+Avengers: Infinity War
+Interstellar
+Das Schweigen der Lämmer
+Sieben
+Leon - Der Profi
+Star Wars
+Der Soldat James Ryan
+Die üblichen Verdächtigen
+Chihiros Reise ins Zauberland
+Cidade de Deus
+La vita è bella
+It's a Wonderful Life
+The Green Mile
+Whiplash
+Back to the Future
+Psycho
+The Departed
+Der König der Löwen
+Gladiator
+The Prestige
+Alien
+Apocalypse Now
+Memento
+The Intouchables
+Raiders of the Lost Ark
+American History X
+Der Pianist
+Spiel mir das Lied vom Tod
+Das Fenster zum Hof
+Casablanca
+Dangal
+Hotaru no haka
+Nuovo Cinema Paradiso
+Lichter der Großstadt
+The Great Dictator
+Moderne Zeiten
+Shining
+Coco
+The Dark Knight Rises
+Es war einmal in Amerika
+Django Unchained
+American Beauty
+Kimi no na wa
+Braveheart
+Aliens - Die Rückkehr
+Oldeuboi
+The Lives of Others
+Dr. Seltsam
+WALL·E
+3 Idiots
+Citizen Kane
+Das Boot
+Mononoke-hime
+M - Dein Mörder sieht dich an
+Taare Zameen Par
+Sunset Boulevard
+Wege zum Ruhm
+Zeugin der Anklage
+Babam ve Oglum
+Star Is Born
+Inglourious Basterds
+Clockwork Orange
+Scarface
+Batman Begins
+Taxi Driver
+Full Metal Jacket
+Requiem for a Dream
+Good Will Hunting
+Space Odyssey
+Vergiss mein nicht
+Snatch
+Toy Story
+Du sollst mein Glücksstern sein
+Reservoir Dogs
+Die Ritter der Kokosnuß
+Jagten
+Amélie
+Amadeus
 
 # Special Attention
 
@@ -27,7 +120,7 @@ Louis de Funes
 Bud Spencer AND Terence Hill
 Robert Palfrader AND Nicholas Ofczarek
 David Schalko
-Peter Alexander
-Marilyn Monroe
+Stanley Kubrick
 Luc Besson
+Quentin Tarantino
 

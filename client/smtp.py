@@ -6,7 +6,7 @@ from email.header import Header
 import sys
 
 
-def send(to, subject, body):
+def send(to, subject, plainBody, htmlBody):
     host = None
     port = 587
     username = None
@@ -54,7 +54,7 @@ def send(to, subject, body):
         if username and password:
             server.login(username, password)
 
-        msg = toMessage(username, to, subject, body)
+        msg = toPlainMessage(username, to, subject, plainBody, htmlBody)
 
         server.sendmail(username, [to], msg.as_string())
         server.close()
@@ -63,7 +63,7 @@ def send(to, subject, body):
         raise
 
 
-def toMessage(frm, to, subject, body):
+def toPlainMessage(frm, to, subject, plainBody, htmlBody):
     msg = MIMEMultipart("alternative")
 
     msg.set_charset("utf8")
@@ -71,13 +71,16 @@ def toMessage(frm, to, subject, body):
     msg["FROM"] = frm
     msg["To"] = to
     msg["Subject"] = Header(subject, "UTF-8").encode()
-    msg["Content-Type"] = "text/plain"
+    # msg["Content-Type"] = "text/plain"
 
-    body = body.replace("\r\n", "\n")
-    body = body.replace("\n", "\r\n")
+    plainBody = plainBody.replace("\r\n", "\n")
+    plainBody = plainBody.replace("\n", "\r\n")
+    plainPart = MIMEText(plainBody, "plain", "UTF-8")
 
-    _attach = MIMEText(body, "plain", "UTF-8")
+    msg.attach(plainPart)
 
-    msg.attach(_attach)
+    htmlPart = MIMEText(htmlBody, "html", "UTF-8")
+
+    msg.attach(htmlPart)
 
     return msg

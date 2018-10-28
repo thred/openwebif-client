@@ -1,4 +1,5 @@
 import datetime
+import utils
 
 class Schedule:
     def __init__(self, channel, timestamp, duration):
@@ -11,7 +12,8 @@ class Schedule:
             self.duration = None
 
     def toHumanReadable(self, lineLength=72):
-        timestamp = datetime.datetime.fromtimestamp(self.timestamp).strftime("%A, %Y-%m-%d %H:%M")
+        timestamp = datetime.datetime.fromtimestamp(
+            self.timestamp).strftime("%A, %Y-%m-%d %H:%M")
 
         if self.duration:
             timestamp += " (" + unicode(self.duration) + " min)"
@@ -22,6 +24,15 @@ class Schedule:
             return timestamp + " " * space + self.channel
         else:
             return timestamp + "\n" + self.channel
+
+    def toHtml(self):
+        timestamp = datetime.datetime.fromtimestamp(
+            self.timestamp).strftime("%A, %Y-%m-%d %H:%M")
+
+        if self.duration:
+            timestamp += " (" + unicode(self.duration) + " min)"
+
+        return u"<b>{}</b><br/><i>{}</i><br/>".format(utils.html(timestamp), utils.html(self.channel))
 
     def __unicode__(self):
         return self.toHumanReadable()

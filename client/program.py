@@ -35,7 +35,8 @@ class Program:
                 matchingTerms.append(term)
 
         if matchingTerms:
-            self.hint = u"\n".join(["Matching: " + unicode(term) for term in matchingTerms])
+            self.hint = u"\n".join(["Matching: " + unicode(term)
+                                    for term in matchingTerms])
             return True
 
         return False
@@ -62,6 +63,20 @@ class Program:
 
         if notes:
             result += "="*lineLength + "\n"
+
+        return result
+
+    def toHtml(self):
+        result = u"""
+<h1>{title}</h1>
+<p>{schedules}</p>
+""".format(title=utils.html(self.title), schedules=u"\n".join([schedule.toHtml() for schedule in self.schedules]))
+
+        notes = [note for note in [self.description,
+                                   self.content, self.hint] if note]
+
+        for note in notes:
+            result += u"<p>{}</p>\n".format(utils.html(note))
 
         return result
 

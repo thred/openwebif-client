@@ -39,3 +39,9 @@ class TimeTable():
         programs = sorted(self.programs, key=lambda item: item.title)
 
         return "\n".join(program.toHumanReadable(lineLength) for program in programs)
+
+    def toHtml(self):
+        programs = sorted(self.programs, key=lambda item: item.title)
+        result = "<hr/>".join(program.toHtml() for program in programs)
+
+        return u"<html><body>{}</body></html>".format(result)

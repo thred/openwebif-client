@@ -85,3 +85,17 @@ def wrap(text, length):
         text = u"\n".join([textwrap.fill(line, length) for line in lines])
 
     return text
+
+
+def html(text):
+    """Converts the text to HTML."""
+
+    if text:
+        text = text.replace("&", "&amp;")
+        text = text.replace("<", "&lt;")
+        text = text.replace(">", "&gt;")
+        text = text.replace("\"", "&quot;")
+        text = text.replace("\n", "<br/>")
+
+    return text
+

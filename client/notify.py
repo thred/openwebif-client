@@ -32,8 +32,7 @@ def consume():
         if config.debug:
             print("Sending result to: " + config.emailTo)
 
-        smtp.send(config.emailTo, "OpenWebIF Client",
-                  timeTable.toHumanReadable())
+        smtp.send(config.emailTo, "OpenWebIF Client", timeTable.toHumanReadable(), timeTable.toHtml())
     else:
         print(timeTable.toHumanReadable())
 
@@ -49,7 +48,7 @@ If at least one TERM is given, it will print only lines, that contain the patter
 
 Respects follwing options:
 
-bouquet, debug, email, host.""")
+bouquet, debug, email, host, html.""")
 
 
 commands.register("notify", "Searches the program guide and prints notifications.",
