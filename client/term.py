@@ -22,18 +22,19 @@ def parse(source):
 class PatternTerm:
 
     def __init__(self, pattern):
-        self.pattern = re.compile(
-            pattern.strip(), re.UNICODE | re.IGNORECASE | re.MULTILINE | re.DOTALL)
+        self.pattern = pattern.strip()
+        self.expression = re.compile(
+            "\\b" + self.pattern + "\\b", re.UNICODE | re.IGNORECASE | re.MULTILINE | re.DOTALL)
 
     def isMatching(self, texts):
         for text in texts:
-            if text and self.pattern.search(text):
+            if text and self.expression.search(text):
                 return True
 
         return False
 
     def __unicode__(self):
-        return self.pattern.pattern
+        return self.pattern
 
 
 class AndTerm:
