@@ -23,15 +23,16 @@ class Program:
         return self.isMatchingAny([term])
 
     def isMatchingAny(self, terms):
-        texts = [self.title, self.description, self.content]
-
-        for schedule in self.schedules:
-            texts.append(schedule.channel)
+        obj = {
+            "title": self.title, 
+            "description": u"\n\n".join([text for text in [self.description, self.content] if text]),
+            "channel": u"\n".join([schedule.channel for schedule in self.schedules])
+        }
 
         matchingTerms = []
 
         for term in terms:
-            if term.isMatching(texts):
+            if term.isMatching(obj):
                 matchingTerms.append(term)
 
         if matchingTerms:
