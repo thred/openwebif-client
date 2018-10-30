@@ -1,6 +1,7 @@
 import sys
 import commands
 import ConfigParser
+from notified import Notified
 from os.path import expanduser
 
 HOME = expanduser("~")
@@ -124,9 +125,24 @@ command = popArg(1, "help").lower()
 debug = _getFlag("debug", "X")
 emailTo = _get("email-to")
 host = _get("host", "h")
+skipNotified = _getFlag("skip-notified")
 smtp = _get("smtp")
 smtps = _get("smtps")
 pretty = _getFlag("pretty", "p")
+
+
+def createNotified():
+    filename = FILENAME
+
+    if filename.endswith(".conf"):
+        filename = filename[:-5]
+
+    filename += ".notified"
+
+    result = Notified(filename)
+    result.load()
+
+    return result
 
 
 def url(command=None):

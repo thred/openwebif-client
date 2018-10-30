@@ -28,11 +28,19 @@ def consume():
 
     timeTable = timetable.of(response["events"], terms)
 
-    if config.emailTo:
+    if config.skipNotified:
+        notified = config.createNotified()
+        timeTable.notified(notified, config.emailTo if config.emailTo else "console")
+        notified.store()
+
+    if len(timeTable) == 0:
+        print("No (new) items found.")
+    elif config.emailTo:
         if config.debug:
             print("Sending result to: " + config.emailTo)
 
-        smtp.send(config.emailTo, "OpenWebIF Client", timeTable.toHumanReadable(), timeTable.toHtml())
+        smtp.send(config.emailTo, "OpenWebIF Client",
+                    timeTable.toHumanReadable(), timeTable.toHtml())
     else:
         print(timeTable.toHumanReadable())
 

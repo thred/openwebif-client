@@ -1,5 +1,5 @@
 from program import Program
-
+import hashlib
 
 def of(events, terms=None):
     timetable = TimeTable()
@@ -27,6 +27,20 @@ class TimeTable():
                 return
 
         self.programs.append(program)
+
+    def notified(self, notified, target):
+        for program in self.programs:
+            for schedule in program.schedules[:]:
+                key = u"{},{},{},{}".format(program.title, schedule.channel, schedule.timestamp, target)
+                checksum = hashlib.md5()
+                checksum.update(key.encode("UTF-8"))
+                key = checksum.hexdigest()
+
+                if notified.alreadyNotified(key):
+                    program.schedules.remove(schedule)
+
+        self.removeUnscheduled()
+
 
     def removeUnscheduled(self):
         self.programs = [
